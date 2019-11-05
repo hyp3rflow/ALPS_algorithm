@@ -1,10 +1,10 @@
 #include <cstdio>
 #include <cstring>
 using namespace std;
-const int MAX = 1000000;
+const int MAX = 1000100;
 
 char T[MAX], S[MAX];
-int M, N, fail[MAX];
+int M, N, fail[MAX], arr[MAX];
 
 void constructFail(){
     int p = 0;
@@ -20,7 +20,10 @@ void KMPalgorithm(int* match){
     for (int i = 0; i < N; i++){
         while (p > 0 && S[i] != T[p]) p = fail[p];
         if (S[i] == T[p]) p++;
-        if (p == M) (*match)++;
+        if (p == M){
+            arr[(*match)] = i - p + 2;
+            (*match)++;
+        }
     }
 }
 
@@ -31,11 +34,15 @@ int main(){
     N = strlen(S);
     M = strlen(T);
 
-    int match = 0;
+    int count = 0;
     constructFail();
-    KMPalgorithm(&match);
+    KMPalgorithm(&count);
 
-    printf("%s\n", match ? "true" : "false");
+    printf("%d\n", count);
+
+    for (int i = 0; i < count; i++){
+        printf("%d ", arr[i]);
+    }
 
     return 0;
 }

@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstring>
 using namespace std;
-const int MAX = 1000000;
+const int MAX = 1000100;
 
 char T[MAX], S[MAX];
 int M, N, fail[MAX];
@@ -25,17 +25,13 @@ void KMPalgorithm(int* match){
 }
 
 int main(){
-    scanf("%[^\n]%*c", S);
+    scanf("%d%*c", &N);
     scanf("%[^\n]%*c", T);
 
-    N = strlen(S);
     M = strlen(T);
 
-    int match = 0;
     constructFail();
-    KMPalgorithm(&match);
 
-    printf("%s\n", match ? "true" : "false");
-
+    printf("%d", N - fail[M]);
     return 0;
 }
