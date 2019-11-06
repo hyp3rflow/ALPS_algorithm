@@ -6,7 +6,7 @@ const int MAX = 1000000;
 char T[MAX], S[MAX];
 int M, N, fail[MAX];
 
-void constructFail(){
+void constructFail() {
     int p = 0;
     for (int i = 1; i < M; i++) {
         while (p > 0 && T[i] != T[p]) p = fail[p];
@@ -15,29 +15,39 @@ void constructFail(){
     }
 }
 
-void KMPalgorithm(int* match){
+void KMPalgorithm(int* match) {
     int p = 0;
-    for (int i = 0; i < N; i++){
+    for (int i = 0; i < N; i++) {
         while (p > 0 && S[i] != T[p]) p = fail[p];
         if (S[i] == T[p]) p++;
         if (p == M) (*match)++;
     }
 }
 
-int main(){
-    
+int main() {
     // scanf("%[^\n]%*c", S);
-    scanf("%[^\n]%*c", T);
-
     // N = strlen(S);
-    M = strlen(T);
 
-    int match = 0;
-    constructFail();
-    for (int i = 0; i <= M; i++) printf("%d ", fail[i]);
-    //KMPalgorithm(&match);
+    while (true) {
+        scanf("%[^\n]%*c", T);
+    
+        if (T[0] == '.') break;
 
-    //printf("%s\n", match ? "true" : "false");
+        M = strlen(T);
+
+        constructFail();
+        
+        // fail function traversal
+        int cnt = 1;
+        int ind = M;
+        int size = M - fail[M];
+
+        if(fail[M] && !(fail[M]%size)){
+            cnt = fail[M] / size + 1;
+        }
+
+        printf("%d\n", cnt);
+    }
 
     return 0;
 }
